@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/styles/base.css" />
     <link rel="stylesheet" href="/styles/forms.css" />
     <link rel="stylesheet" href="/styles/posts.css" />
+    <script src="/scripts/comments.js" defer></script>
   </head>
 
   <body>
@@ -19,32 +20,30 @@
       </section>
       <hr />
       <section>
-        <p id="body"><%= post.body %></p>
+        <p id="body"><%= post.content %></p>
       </section>
       <section id="comments">
-        <% if (!comments) { %>
-        <p>
-          This post might have comments. You can load them if you want to view
-          them.
-        </p>
-        <form action="/posts/<%= post._id %>/comments" method="GET">
-          <button class="btn btn-alt">Load Comments</button>
-        </form>
-        <% } else if (comments.length === 0) { %>
-          <p>No comments found.</p>
-        <% } else { %>
-          <ol>
-            <% for (const comment of comments) { %>
-              <li>
-                <%- include('includes/comment-item', { comment: comment }) %>
-              </li>
-            <% } %>
-          </ol>
-        <% } %>
+        <div id="load-comments">
+          <p>
+            This post might have comments. You can load them if you want to view
+            them.
+          </p>
+          <button
+            class="btn btn-alt"
+            id="load-comments-button"
+            data-postid="<%= post._id %>"
+          >
+            Load Comments
+          </button>
+        </div>
+
+        <p id="no-comments">No comments found.</p>
+
+        <ol id="comments-list"></ol>
       </section>
       <section id="comments-form">
         <h2>Leave a comment</h2>
-        <form action="/posts/<%= post._id %>/comments" method="POST">
+        <form data-postid="<%= post._id %>">
           <div class="form-control">
             <label for="title">Comment title</label>
             <input type="text" id="title" name="title" required />

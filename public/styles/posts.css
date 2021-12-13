@@ -87,3 +87,15 @@ h1 {
   max-width: 30rem;
   border: 1px solid rgb(204, 204, 204);
 }
+
+#no-comments {
+  display: none;
+}
+
+#comments-list {
+  display: none;
+}
+
+#load-comments {
+  display: block;
+}
